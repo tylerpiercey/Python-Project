@@ -12,50 +12,76 @@ for suit in suits:
     for rank in ranks:
         deck.append([rank, suit, pointValues[ranks.index(rank)]])
 
-playerHand = []
-dealerHand = []
-
-random.shuffle(deck)
-
-playerHand.append(deck.pop())
-playerHand.append(deck.pop())
-#print(playerHand)
-
-dealerHand.append(deck.pop())
-dealerHand.append(deck.pop())
-#print(dealerHand)
-
-print("DEALER'S SHOW CARD:")
-print(f"{dealerHand[0][0]} of {playerHand[0][1]}")
-print()
-print("YOUR CARDS:")
-print(F"{playerHand[0][0]} of {playerHand[0][1]}")
-print(F"{playerHand[1][0]} of {playerHand[1][1]}")
-playerTotal = 0
-dealerTotal = 0
-
 while True:
+    playerHand = []
+    dealerHand = []
+
+    random.shuffle(deck)
+
+    playerHand.append(deck.pop())
+    playerHand.append(deck.pop())
+    #print(playerHand)
+
+    #dealerHand.append(deck.pop())
+    dealerHand.append(deck.pop())
+    #print(dealerHand)
+
+    print("DEALER'S SHOW CARD:")
+    print(f"{dealerHand[0][0]} of {playerHand[0][1]}")
+    print()
+    print("YOUR CARDS:")
+    print(F"{playerHand[0][0]} of {playerHand[0][1]}")
+    print(F"{playerHand[1][0]} of {playerHand[1][1]}")
+    playerTotal = playerHand[0][2] + playerHand[1][2]
+    dealerTotal = dealerHand[0][2]
 
     choice = input("Hit or Stand (hit/stand): ")
+    print()
     if choice.lower() == "stand":
-
+        dealerHand.append(deck.pop())
+        dealerTotal += dealerHand[1][2]
+        #if dealerTotal == 21 and playerTotal == 21:
         print("DEALER' CARDS:")
         for i in range(len(dealerHand)):
+            while dealerTotal < 17:
+                dealerHand.append(deck.pop())
+                dealerTotal += dealerHand[i+2][2]
+        for i in range(len(dealerHand)):
             print(F"{dealerHand[i][0]} of {dealerHand[i][1]}")
+        if dealerTotal > 21 or dealerTotal < playerTotal:
+            print()
+            print("Player wins!")
+            print()
+        elif playerTotal == dealerTotal:
+            print("Draw!")
+        else:
+            print("Sorry. You lose.")
+            print()
+        print(f"YOUR POINTS: {playerTotal}")
+        print(f"DEALER'S POINTS: {dealerTotal}")
         print()
-        break
     elif choice.lower() == "hit":
         playerHand.append(deck.pop())
-
         print("YOUR CARDS:")
         for i in range(len(playerHand)):
             print(F"{playerHand[i][0]} of {playerHand[i][1]}")
             playerTotal += playerHand[i][2]
         if playerTotal > 21:
             print("sorry. you lose.")
-            break
     else:
         print("Invalid Input")
+    playAgain = input("Play again (y/n): ")
+    print()
+    if playAgain.lower() == "n":
+        print("Come back soon!")
+        print("Bye!")
+        break
+    elif playAgain.lower() == "y":
+        continue
+    else:
+        print("invalid input. Closing program")
+        break
+
 
 
 
