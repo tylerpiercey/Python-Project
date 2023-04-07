@@ -1,6 +1,7 @@
 import random
 
 # create a list to store suit rank and point value
+#
 
 suits = ["Hearts", "Diamonds", "Clubs", "Spades"]
 ranks = ["Ace", "King", "Queen", "Jack", "10", "9", "8", "7", "6", "5", "4", "3", "2"]
