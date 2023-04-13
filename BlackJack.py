@@ -1,5 +1,7 @@
 import random
 import db
+
+#comments
 def title():
     print("BLACKJACK!")
     print("Blackjack payout is 3:2")
