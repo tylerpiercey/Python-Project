@@ -98,10 +98,10 @@ def main():
                 while playerTotal < 22:
                     choice = input("Hit or Stand (hit/stand): ")
                     print()
-                    if choice.lower() == "s":
+                    if choice.lower() == "stand":
                         stand(dealerHand, playerTotal, dealerTotal, deck, account, bet)
                         break
-                    elif choice.lower() == "h":
+                    elif choice.lower() == "hit":
                         aces = 0
                         playerTotal = 0
                         playerHand.append(deck.pop())
