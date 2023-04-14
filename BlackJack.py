@@ -1,12 +1,15 @@
+#A program that allows a user to play a blackjack game with betting aginst a computer
+
 import random
 import db
 
-#comments
+#prints game info
 def title():
     print("BLACKJACK!")
     print("Blackjack payout is 3:2")
     print()
 
+#creates a deck of cards
 def makeDeck():
     suits = ["Hearts", "Diamonds", "Clubs", "Spades"]
     ranks = ["Ace", "King", "Queen", "Jack", "10", "9", "8", "7", "6", "5", "4", "3", "2"]
@@ -19,6 +22,7 @@ def makeDeck():
             deck.append([rank, suit, pointValues[ranks.index(rank)]])
     return deck
 
+# performs all logic for the stand option.
 def stand(dealerHand, playerTotal, dealerTotal, deck, account, bet):
     dealerHand.append(deck.pop())
     dealerTotal += dealerHand[1][2]
@@ -53,9 +57,10 @@ def main():
     account = db.read_balance()
     deck = makeDeck()
     title()
+    # gives user option to by more chips if account amount is below 5
     while True:
         if account < 5:
-            choice = input("Not enough in you account would you like to buy more chips (y/n): ")
+            choice = input("Not enough in your account would you like to buy more chips (y/n): ")
             if choice.lower() == "y":
                 try:
                     amount = float(input("How much would you like to buy: "))
@@ -67,6 +72,7 @@ def main():
                 print("Thanks for playing.")
                 break
 
+#creates a player and hand and one card of a dealer hand
         playerHand = []
         dealerHand = []
 
@@ -76,6 +82,8 @@ def main():
         playerHand.append(deck.pop())
 
         dealerHand.append(deck.pop())
+
+# allows user to make a bet then displays users and players hand
         try:
             bet = float(input("Make a bet: "))
             if bet < 5 or bet > 1000 or bet > account:
@@ -90,11 +98,13 @@ def main():
                 print()
                 playerTotal = playerHand[0][2] + playerHand[1][2]
                 dealerTotal = dealerHand[0][2]
+# if player has 21 adds payout of 1.5 * bet to account
                 if playerTotal == 21:
                     print("Blackjack!")
                     account += 1.5 * bet
                     db.write_balance(account)
                     break
+#handles the hit and stand options and deals with aces.
                 while playerTotal < 22:
                     choice = input("Hit or Stand (hit/stand): ")
                     print()
