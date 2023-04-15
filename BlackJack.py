@@ -40,6 +40,7 @@ def stand(dealerHand, playerTotal, dealerTotal, deck, account, bet):
         print(f"DEALER'S POINTS: {dealerTotal}")
         print()
         print("Player wins!")
+        print(account)
         print()
         db.write_balance(account)
     elif playerTotal == dealerTotal:
@@ -51,6 +52,7 @@ def stand(dealerHand, playerTotal, dealerTotal, deck, account, bet):
         print(f"DEALER'S POINTS: {dealerTotal}")
         print()
         print("Sorry. You lose.")
+        print(account)
         db.write_balance(account)
 
 def main():
@@ -129,6 +131,7 @@ def main():
                         print()
                         if playerTotal > 21:
                             print("sorry. you lose.")
+                            print(account)
                             print()
                             account -= bet
                             db.write_balance(account)
