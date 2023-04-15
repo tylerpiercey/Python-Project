@@ -40,9 +40,9 @@ def stand(dealerHand, playerTotal, dealerTotal, deck, account, bet):
         print(f"DEALER'S POINTS: {dealerTotal}")
         print()
         print("Player wins!")
-        print(account)
-        print()
         db.write_balance(account)
+        print(f"Balance: {account}")
+        print()
     elif playerTotal == dealerTotal:
         print("Draw!")
     else:
@@ -52,8 +52,8 @@ def stand(dealerHand, playerTotal, dealerTotal, deck, account, bet):
         print(f"DEALER'S POINTS: {dealerTotal}")
         print()
         print("Sorry. You lose.")
-        print(account)
         db.write_balance(account)
+        print(f"Balance: {account}")
 
 def main():
     account = db.read_balance()
@@ -88,6 +88,7 @@ def main():
 # allows user to make a bet then displays users and players hand
         try:
             bet = float(input("Make a bet: "))
+            print()
             if bet < 5 or bet > 1000 or bet > account:
                 print("bet must be higher than 5 and less than 1000.")
             else:
@@ -105,6 +106,7 @@ def main():
                     print("Blackjack!")
                     account += 1.5 * bet
                     db.write_balance(account)
+                    print(f"Balance: {account}")
                     break
 #handles the hit and stand options and deals with aces.
                 while playerTotal < 22:
@@ -131,15 +133,16 @@ def main():
                         print()
                         if playerTotal > 21:
                             print("sorry. you lose.")
-                            print(account)
                             print()
                             account -= bet
                             db.write_balance(account)
+                            print(f"Balance: {account}")
                     else:
                         print("Invalid Input")
         except ValueError:
             print("Enter valid input.")
             print()
+        print()
         playAgain = input("Play again (y/n): ")
         print()
         if playAgain.lower() == "n":
